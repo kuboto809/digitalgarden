@@ -44,13 +44,13 @@ They can be thought of as " cout. print ("") ".
 ## Compiling
 Each cpp file get compiled into a object file. In VS it is called .obj. Linker takes them together to make a .exe.
 In VS, hit ctrl + F7 to compile a single cpp file. Or add a compile button like the following.
-![Pasted image 20231103145626.png](/img/user/Notes/Programming/Pasted%20image%2020231103145626.png)
+![Pasted image 20231103145626.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231103145626.png)
 
 This is the object file that the compiler has generated.
-![Pasted image 20231103150045.png](/img/user/Notes/Programming/Pasted%20image%2020231103150045.png)
+![Pasted image 20231103150045.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231103150045.png)
 ### Preprocessing
 To see how the preprocessing file looks like, in VS we need to right click our project, click properties, go to C/C++，preprocessing. 
-![Pasted image 20231103162618.png](/img/user/Notes/Programming/Pasted%20image%2020231103162618.png)
+![Pasted image 20231103162618.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231103162618.png)
 Note that it won't generate .obj anymore. So if we don't care about preprocessing files, make sure to change it back.
 Since .obj is binary codes which are not readable, we want to output .asm codes which are more readable. Select "output" instead of "preprocessing" in the manual, and set ASM output to OnlyList.
 #### The "#include"
@@ -188,7 +188,7 @@ A bit is a "digit container" which can contain only 0 or 1. If we have 4 bits, w
 If we want to represent negative numbers as well, we need to allocate a bit for representing the "plus or minus" sign (usually the leading bit, i.e. the first bit counting from the left, usually  called the MSB bit -- the most significant bit). E.g. we can represent numbers from -8 ~ 7 if we have 4 bits. Because one bit is for representing the sign, there are only 3 bits left. So for positive numbers, we can have 0 ~ 7 (cuz 3 bits can represent 0 ~ 7 obviously); for negative numbers, we can have -1 ~ -8 (? Not -7 ? ). Here the representation of 0 is ambiguous.
 #### 2. 1's Complement Method
 Still, we allocate a bit for representing the sign . If it is positive number, everything remains unchanged. The leading bit is 0. If it is a negative number, we write 1 in the leading bit, then switch zero and one in the rest of the bits.
-![Pasted image 20231114104448.png](/img/user/Notes/Programming/Pasted%20image%2020231114104448.png)
+![Pasted image 20231114104448.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231114104448.png)
 It still has the problem of ambiguous zero.
 #### 3. 2's Complement Method
 It is the most common method, and it also solves the ambiguous zero problem.
@@ -229,7 +229,7 @@ If we print it out as decimal number (use %d), we get 65; if we print it out as 
 Note that if we store a number in `int` and print it out as character (%c), we can get the character as well.
 Conclusion: the type matters not; int and char are only differ in size: `int` is 4 bytes, `char` is 1 byte. Since characters and integers are all just binary numbers, both `int` and `char` can store them. When printing out, they are the same. The difference is how u call the printf () function (%d or %c) when printing character and number.
 How negative numbers are stored in char:
-![Pasted image 20231114150455.png](/img/user/Notes/Programming/Pasted%20image%2020231114150455.png)
+![Pasted image 20231114150455.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231114150455.png)
 The negative numbers can have the same representation as some positive numbers, i.e. if we store a negative number and print it out as a char, that is the same as storing its corresponding positive number.
 ### Float and double
 It is for us to store decimals.
@@ -239,7 +239,7 @@ When we open up a new float variable, it is actually a "double" type. If we want
 float a = 3.14f;
 ```
 
-![Pasted image 20231114151510.png](/img/user/Notes/Programming/Pasted%20image%2020231114151510.png)
+![Pasted image 20231114151510.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231114151510.png)
 We can see that the floating point representation can represent a huge range of numbers given the same places (in the case in the picture, there are 4 places, not 4 bits) compared to fixed point representation.
 ##### Printing them out:
 `printf("%f", a);` if u want to specify how many digit u want to print out after the decimal point, e.g. 3 digits, then `printf("%.3f", a)`. `%lf` for printing long double.
@@ -255,9 +255,9 @@ This means `result` will be 1, if x is equal to 5; if not, 0.
 ### The unsigned case
 If we have only an unsigned interger which is only 3 bits, and we try to store a number which is greater than 7, then the result we get is the same as if we are doing a mod 8 operation to that number. E.g. storing 8 will get us 0.
 In general, $n$ bits means mod $2^n$, when exceeded (unsigned).
-![Exceeding The Valid Range of Data Types 4-12 screenshot.png](/img/user/Notes/Programming/Exceeding%20The%20Valid%20Range%20of%20Data%20Types%204-12%20screenshot.png)
+![Exceeding The Valid Range of Data Types 4-12 screenshot.png](/img/user/Notes/Programming/attachments/Exceeding%20The%20Valid%20Range%20of%20Data%20Types%204-12%20screenshot.png)
 ### The signed case
-![Pasted image 20231114114129.png](/img/user/Notes/Programming/Pasted%20image%2020231114114129.png)
+![Pasted image 20231114114129.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231114114129.png)
 Its logic is still the same as doing mod operation.
 From the above picture, we know that
 $2147483647+ 1 \mapsto-2147483648$
@@ -273,7 +273,7 @@ Use `printf()` function
 	`printf()` not only prints the content on the screen, it also **returns** the number of characters it successfully printed.
 `printf("%10s", "Hello")`: the 10 here means print the string up to 10 characters wide. But here we have only 5 characters, so it adds 5 spaces in frocch looks like this `     Hello`. If our characters are longer than we specified, it prints them out normally.
 For other integers:
-![Pasted image 20231114101453.png](/img/user/Notes/Programming/Pasted%20image%2020231114101453.png)
+![Pasted image 20231114101453.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231114101453.png)
 Pattern: replace 'd' with 'u' if you want to print an unsigned integer. Put an 'l' in front of it if it is a "long" interger. If it is even longer, put one more 'l' in front of it.
 <font color="#d99694">Does printing an integer as unsigned mean counting its MSB as a part of the positive numbere binary representation?</font>
 ## Reading inputs
@@ -302,7 +302,7 @@ Here is how a function look like:
 ```
 And here is how we **declare** a function:
 **Function Declaration**
-![Pasted image 20231116155651.png](/img/user/Notes/Programming/Pasted%20image%2020231116155651.png)
+![Pasted image 20231116155651.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231116155651.png)
 - It is not necessary to put the name of the parameters in function prototype
 *Debugging*
 	If we call a function before declaring it (the function's definition is at the bottom), the compiler assumes that the function returns integer. If our function doesn't return integer, there will be a "conflicting type" error. Because when it reaches the bottom and sees our definition, the return type doesn't match.
@@ -325,23 +325,23 @@ We don't want to create a function for everything cuz when it operates, it takes
 ### Definition
 - The area under which a variable is applicable or alive
 Strict Definition: a block or a region where a variable is declared. defined and used and when a block or aregion ends, variable is automatically <u>destroyed</u>.
-![Pasted image 20231114160953.png](/img/user/Notes/Programming/Pasted%20image%2020231114160953.png)
-![Pasted image 20231114161229.png](/img/user/Notes/Programming/Pasted%20image%2020231114161229.png)
+![Pasted image 20231114160953.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231114160953.png)
+![Pasted image 20231114161229.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231114161229.png)
 	Note that only redefinition within the same block will cause error. Also, the compiler prefer to choose the variable that is local to the function calling it. If there is no local variable in the function, it tries to grab one that is closest to it.
 ### Global Variable
 - it is visible to ALL functions in ALL files. Though if u want to use it u need to write `extern` to tell the compiler to grab it. 
 - It is initialized to 0 by default
-![Pasted image 20231114161548.png](/img/user/Notes/Programming/Pasted%20image%2020231114161548.png)
+![Pasted image 20231114161548.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231114161548.png)
 Define a variable outside any block/function makes it a global variable.
 ## Variable Modifier
 ### Auto modifier
-![Pasted image 20231114162028.png](/img/user/Notes/Programming/Pasted%20image%2020231114162028.png)
+![Pasted image 20231114162028.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231114162028.png)
 By default the variables u declare are auto.
 It will be destroyed once the function ends.
 If you won't initialize auto variable, by default it will beinitialized with some garbage (random) value.
 On the other hand, global variable by default initialized to 0.
 ### External Modifier
-![Pasted image 20231114162405.png](/img/user/Notes/Programming/Pasted%20image%2020231114162405.png)
+![Pasted image 20231114162405.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231114162405.png)
 Declaration: tell the compiler what type of variable it is.
 <mark style="background: #593D4FB5;">Definition: tell the compiler to allocate some memory for it (it doesn't mean assigning a value to it).</mark>
 `extern`: we tell the compiler to find the variable outside of the current scope.
@@ -354,7 +354,7 @@ Syntax: `register var_type var_name;` e.g. `register int a;`
 - It makes the variable only visible in the current file. Other files cannot see it. 
 - It also initializes the variable to 0. If we want to initialize it to some other value, it must be a constant. 
 - We cannot assign a variable to a static variable, i.e., `static int a = b;` is not allowed since b is a variable.
-![Pasted image 20231114174101.png](/img/user/Notes/Programming/Pasted%20image%2020231114174101.png)
+![Pasted image 20231114174101.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231114174101.png)
 If a static variable is initialized (with a value differs to 0), it is stored in the initialized section; otherwise, the uninitialized section (even though its value is 0).
 Syntax: `static var_type var_name;`
 **Local permanence**
@@ -381,8 +381,8 @@ rvalue (right value)
 - An object that has no identifiable location in memory
 - Anything which is capable of returning a constant/expression or value
 - Expressions like a + b will return some constant value.
-![Pasted image 20231114184903.png](/img/user/Notes/Programming/Pasted%20image%2020231114184903.png)
-![Pasted image 20231114185726.png](/img/user/Notes/Programming/Pasted%20image%2020231114185726.png)
+![Pasted image 20231114184903.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231114184903.png)
+![Pasted image 20231114185726.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231114185726.png)
 Post-increment /decrement in context of equation
 - **First use** the value in the equation and **then increment** the value (after the expression is completed, i.e this expression has been evaluated)
 - Read first, write second
@@ -391,33 +391,33 @@ Pre-increment /decrement in context of equation
 - Write first, read second
 ### Lexical Analysis
 Lexical analyzer goes to the right as much as it can to find meaningful lexemes. Then lexemes are mapped to tokens.
-![Pasted image 20231114190623.png](/img/user/Notes/Programming/Pasted%20image%2020231114190623.png)
+![Pasted image 20231114190623.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231114190623.png)
 
 ### Relational operators
 `!= == <= >= > <` are relational operators. They return `true` or `false`.
 #### Short circuit in logical operators
-![Pasted image 20231114192555.png](/img/user/Notes/Programming/Pasted%20image%2020231114192555.png)
+![Pasted image 20231114192555.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231114192555.png)
 In the case of `OR`: if there is a condition anywhere in the expression that returns True, then the rest of theconditions after that will not be evaluated.
 
 ### Bitwise operators
 `& | ~ << >> ^` are bitwise operators.
 Bitewise AND Operator 
-![Pasted image 20231116082943.png](/img/user/Notes/Programming/Pasted%20image%2020231116082943.png)
+![Pasted image 20231116082943.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231116082943.png)
 Bitwise OR Operator
-![Pasted image 20231116083014.png](/img/user/Notes/Programming/Pasted%20image%2020231116083014.png)
+![Pasted image 20231116083014.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231116083014.png)
 Bitwise NOT Operator
-![Pasted image 20231116083036.png](/img/user/Notes/Programming/Pasted%20image%2020231116083036.png)
+![Pasted image 20231116083036.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231116083036.png)
 Left Shift Operator
-![Pasted image 20231116092305.png](/img/user/Notes/Programming/Pasted%20image%2020231116092305.png)
+![Pasted image 20231116092305.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231116092305.png)
 - When bits are shifted left then trailing positions arefilled with zeros.
-![Pasted image 20231116092349.png](/img/user/Notes/Programming/Pasted%20image%2020231116092349.png)
-![Pasted image 20231116092428.png](/img/user/Notes/Programming/Pasted%20image%2020231116092428.png)
+![Pasted image 20231116092349.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231116092349.png)
+![Pasted image 20231116092428.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231116092428.png)
 Right Shift Operator
-![Pasted image 20231116092605.png](/img/user/Notes/Programming/Pasted%20image%2020231116092605.png)
-![Pasted image 20231116092708.png](/img/user/Notes/Programming/Pasted%20image%2020231116092708.png)
+![Pasted image 20231116092605.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231116092605.png)
+![Pasted image 20231116092708.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231116092708.png)
 - We truncate the remainder
 Bitwise XOR Operator
-![Pasted image 20231116092816.png](/img/user/Notes/Programming/Pasted%20image%2020231116092816.png)
+![Pasted image 20231116092816.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231116092816.png)
 <font color="#d99694">OR = AND || XOR ?</font>
 - Result of XOR is 1 when two bits are different; otherwise the result is 0
 >[!NOTE]- Why do I need it?
@@ -439,17 +439,13 @@ b = a-b; //(a = 7, b = 3)
 a = a-b; //(a = 4, b = 3)
 >```
 
-
-
-
-
 ### Assignment operators
 = is assignment operator. There are many shorthand assignment operators, like `+= *= <<= &=` etc.
 E.g. `a += 1` means` a  = a + 1`
 ### Conditional operator
 It looks like `Expression 1 ? Expression 2 : Expression 3`
 Here the expression 1 will be treated as a booleen expression.
-![Pasted image 20231116101041.png](/img/user/Notes/Programming/Pasted%20image%2020231116101041.png)
+![Pasted image 20231116101041.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231116101041.png)
 The above is equivalent to
 ```
 if (mark > 33)
@@ -459,27 +455,27 @@ else
 ```
 - It returns an expression, so<mark style="background: #593D4FB5;"> it is an r-value</mark>
 ### Comma Operator
-![Pasted image 20231116101717.png](/img/user/Notes/Programming/Pasted%20image%2020231116101717.png)
+![Pasted image 20231116101717.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231116101717.png)
 It is a separator in 
 - Function calls and definitions
 - Variable declaration
 - Enum declaration
-![Pasted image 20231116101839.png](/img/user/Notes/Programming/Pasted%20image%2020231116101839.png)
+![Pasted image 20231116101839.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231116101839.png)
 - i.e. evaluates but doesn't return
-![Pasted image 20231116102018.png](/img/user/Notes/Programming/Pasted%20image%2020231116102018.png)
-![Pasted image 20231116102116.png](/img/user/Notes/Programming/Pasted%20image%2020231116102116.png)
+![Pasted image 20231116102018.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231116102018.png)
+![Pasted image 20231116102116.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231116102116.png)
 ### Precedence of Operators
 - Operators with higher precedence will be evaluated first
 - Associativity of operators come into picture when precedence of operators are the same and we need to decide which operator will be evaluated first
 Associativity can be either Left to right OR Right to left
-![Pasted image 20231116102657.png](/img/user/Notes/Programming/Pasted%20image%2020231116102657.png)
+![Pasted image 20231116102657.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231116102657.png)
 Precedence and Associativity Table
-![Pasted image 20231116102722.png](/img/user/Notes/Programming/Pasted%20image%2020231116102722.png)
-![Pasted image 20231116103534.png](/img/user/Notes/Programming/Pasted%20image%2020231116103534.png)
+![Pasted image 20231116102722.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231116102722.png)
+![Pasted image 20231116103534.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231116103534.png)
 **Notes:**
 - Precedence of **Postfix** Increment/Decrement operator is **greater** than Prefix Increment/Decrement.
 - Associativity of Postfix is also different from Prefix. Associativity of **postfix** operators is from **left to right** and that of **prefix** operators is from **right to left**.
-![Pasted image 20231116103829.png](/img/user/Notes/Programming/Pasted%20image%2020231116103829.png)
+![Pasted image 20231116103829.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231116103829.png)
 - If we have only one operator, associativity will not work
 ## Conditions and branches
 ### If statement
@@ -491,16 +487,16 @@ if (homepage_button_is_clicked)
 else
 	stays at current page
 ```
-![Pasted image 20231116111027.png](/img/user/Notes/Programming/Pasted%20image%2020231116111027.png)
+![Pasted image 20231116111027.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231116111027.png)
 The playstore button clicking is dependent to the app button clicking.
 - Too many ifs slows down the program
 - `if else` is the same as `if { else {} }
 - If the body is empty, it won't be considered as an error.
 ### Switch
 Its body gets evaluated from top to bottom.
-![Pasted image 20231116111727.png](/img/user/Notes/Programming/Pasted%20image%2020231116111727.png)
+![Pasted image 20231116111727.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231116111727.png)
 Puts in a INTEGER to evaluate. 
-![Pasted image 20231116111842.png](/img/user/Notes/Programming/Pasted%20image%2020231116111842.png)
+![Pasted image 20231116111842.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231116111842.png)
 - DON'T put a float / variable in the case label.
 - If there is no break, ALL statements below will get executed (even it doesn't fits the case label)
 ## Loops
@@ -509,7 +505,7 @@ Puts in a INTEGER to evaluate.
 for([code that runs only once]; [condition]; [code that runs every time after it runs the body])
 ```
 At the very beginning, it runs the initialization step. Then it runs the body, then does the increment, and see if it matches the condition.
-![Pasted image 20231116112458.png](/img/user/Notes/Programming/Pasted%20image%2020231116112458.png)
+![Pasted image 20231116112458.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231116112458.png)
 We can write it as follows:
 ```
 int i = 0;
@@ -564,7 +560,7 @@ do
 } while([condition]);
 ```
 It does the body at least once no matter what.
-![Pasted image 20231116112756.png](/img/user/Notes/Programming/Pasted%20image%2020231116112756.png)
+![Pasted image 20231116112756.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231116112756.png)
 ## Control flow
 ### Continue
 If it is executed, the program will jump to the next iteration of the for loop, e.g. the head of the for loop and does the increment.
@@ -601,7 +597,7 @@ That is, we can perform the modulus operation to get the last digit, and we can 
 >2. We get the last digit of the number (by modulus) and STORE IT **in a new variable**
 >3. We multiply our result by ten and add the digit we got
 >4. Get rid of the last digit (by division)
->5. ![Pasted image 20231116131031.png](/img/user/Notes/Programming/Pasted%20image%2020231116131031.png)
+>5. ![Pasted image 20231116131031.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231116131031.png)
 
 >[!Tips]- How we get the number of digits of a number
 >Lets say q is the number we are curious about. We make a count variable first.
