@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/Notes/Programming/C++ Basics/"}
+{"dg-publish":true,"permalink":"/Notes/Programming/C++ Basics/","noteIcon":""}
 ---
 
 # Chapter 0
@@ -270,7 +270,7 @@ Use `printf()` function
 `%s`: string
 `%c`: char
 `%x`: hexadecimal numbers (lowercase letters, if u want uppercase letters, do `%X` instead)
-`printf()` not only prints the content on the screen, it also **returns** the number of characters it successfully printed.
+	`printf()` not only prints the content on the screen, it also **returns** the number of characters it successfully printed.
 `printf("%10s", "Hello")`: the 10 here means print the string up to 10 characters wide. But here we have only 5 characters, so it adds 5 spaces in frocch looks like this `     Hello`. If our characters are longer than we specified, it prints them out normally.
 For other integers:
 ![Pasted image 20231114101453.png](/img/user/Notes/Programming/Pasted%20image%2020231114101453.png)
@@ -286,14 +286,26 @@ The "&" is called "address-of" operator. It gets the memory address of a variabl
 Scanf () needs to store the data read in a variable, so we need to tell it the address of the variable.
 ## Functions
 If we don't want duplicate codes, we can make a function so that whenever we want to do the same operation again and again, we don't have to copy and paste our codes.
-Note that if we copy and paste our code, we might forget to change some details, which can lead to error. For example, we want to do an operation and output the result called result1, then the second operation and result2, that means we need to make 2 variables to store the results and then output them. But we may forget to create a new variable when we copy the lines.
+Note that if we do copy and paste our code, we might forget to change some details, which can lead to error. For example, we want to do an operation and output the result called result1, then the second operation and result2, that means we need to make 2 variables to store the results and then output them. But we may forget to create a new variable when we copy the lines.
+Why we need functions:
+1.  Reusability 
+	Once the function is defined, it can be reused over and over again.
+2. Abstracton
+	If you are just using the function in your program then you don't have to worry about how it works inside!
 Here is how a function look like:
+**Function Definition**
 ```
 [The output type of variable] [Function name]([Input parameters])
 {
 	[What the function does]
 }
 ```
+And here is how we **declare** a function:
+**Function Declaration**
+![Pasted image 20231116155651.png](/img/user/Notes/Programming/Pasted%20image%2020231116155651.png)
+- It is not necessary to put the name of the parameters in function prototype
+*Debugging*
+	If we call a function before declaring it (the function's definition is at the bottom), the compiler assumes that the function returns integer. If our function doesn't return integer, there will be a "conflicting type" error. Because when it reaches the bottom and sees our definition, the return type doesn't match.
 If we want a function to take in two variables and return their product, we write
 ```
 int Multiply(int a, int b)
@@ -331,7 +343,7 @@ On the other hand, global variable by default initialized to 0.
 ### External Modifier
 ![Pasted image 20231114162405.png](/img/user/Notes/Programming/Pasted%20image%2020231114162405.png)
 Declaration: tell the compiler what type of variable it is.
-Definition: tell the compiler to allocate some memory for it.
+<mark style="background: #593D4FB5;">Definition: tell the compiler to allocate some memory for it (it doesn't mean assigning a value to it).</mark>
 `extern`: we tell the compiler to find the variable outside of the current scope.
 If we don't want the compiler to allocate memory for it, we then make our variable external variable. Consider the case that we have defined the variable in some other files, and we want to reuse it. In this case we tell our compiler not to allocate memory for it again. We can write `extern int a;` before main (). Then if we call our variable a inside main (), the linker will try to grab the variable a in some other files, if we have defined it in somewhere else.
 If we write `extern int a;` in main (), that means we tell the compiler to find the variable a outside main (). It may be defined as a global variable or so.
@@ -372,7 +384,7 @@ rvalue (right value)
 ![Pasted image 20231114184903.png](/img/user/Notes/Programming/Pasted%20image%2020231114184903.png)
 ![Pasted image 20231114185726.png](/img/user/Notes/Programming/Pasted%20image%2020231114185726.png)
 Post-increment /decrement in context of equation
-- **First use** the value in the equation and **then increment** the value
+- **First use** the value in the equation and **then increment** the value (after the expression is completed, i.e this expression has been evaluated)
 - Read first, write second
 Pre-increment /decrement in context of equation
 - **First increment** the value and **then use** in the equation after completion of the equation (after it reads the whole equation, it finally subsitutes in the value)
@@ -387,16 +399,117 @@ Lexical analyzer goes to the right as much as it can to find meaningful lexemes.
 ![Pasted image 20231114192555.png](/img/user/Notes/Programming/Pasted%20image%2020231114192555.png)
 In the case of `OR`: if there is a condition anywhere in the expression that returns True, then the rest of theconditions after that will not be evaluated.
 
+### Bitwise operators
+`& | ~ << >> ^` are bitwise operators.
+Bitewise AND Operator 
+![Pasted image 20231116082943.png](/img/user/Notes/Programming/Pasted%20image%2020231116082943.png)
+Bitwise OR Operator
+![Pasted image 20231116083014.png](/img/user/Notes/Programming/Pasted%20image%2020231116083014.png)
+Bitwise NOT Operator
+![Pasted image 20231116083036.png](/img/user/Notes/Programming/Pasted%20image%2020231116083036.png)
+Left Shift Operator
+![Pasted image 20231116092305.png](/img/user/Notes/Programming/Pasted%20image%2020231116092305.png)
+- When bits are shifted left then trailing positions arefilled with zeros.
+![Pasted image 20231116092349.png](/img/user/Notes/Programming/Pasted%20image%2020231116092349.png)
+![Pasted image 20231116092428.png](/img/user/Notes/Programming/Pasted%20image%2020231116092428.png)
+Right Shift Operator
+![Pasted image 20231116092605.png](/img/user/Notes/Programming/Pasted%20image%2020231116092605.png)
+![Pasted image 20231116092708.png](/img/user/Notes/Programming/Pasted%20image%2020231116092708.png)
+- We truncate the remainder
+Bitwise XOR Operator
+![Pasted image 20231116092816.png](/img/user/Notes/Programming/Pasted%20image%2020231116092816.png)
+<font color="#d99694">OR = AND || XOR ?</font>
+- Result of XOR is 1 when two bits are different; otherwise the result is 0
+>[!NOTE]- Why do I need it?
+>Ans: it can be used to swap variables:
+>```
+>a = 0100 = 4
+>b =  0011 = 3
+>a = a ^ b =  0111 = 7
+>b = a ^ b = 0100 = 4
+>a = a ^ b = 0011 = 3
+>
+Thus we swapped the value of a and b without using the third variable.
+>There is also another way to do this:
+>```
+>```
+int a = 3; int b = 4;
+a = a+b; //(a = 7, b = 4) 
+b = a-b; //(a = 7, b = 3)
+a = a-b; //(a = 4, b = 3)
+>```
+
+
+
+
+
+### Assignment operators
+= is assignment operator. There are many shorthand assignment operators, like `+= *= <<= &=` etc.
+E.g. `a += 1` means` a  = a + 1`
+### Conditional operator
+It looks like `Expression 1 ? Expression 2 : Expression 3`
+Here the expression 1 will be treated as a booleen expression.
+![Pasted image 20231116101041.png](/img/user/Notes/Programming/Pasted%20image%2020231116101041.png)
+The above is equivalent to
+```
+if (mark > 33)
+	result = 'p';
+else
+	resulf = 'f';
+```
+- It returns an expression, so<mark style="background: #593D4FB5;"> it is an r-value</mark>
+### Comma Operator
+![Pasted image 20231116101717.png](/img/user/Notes/Programming/Pasted%20image%2020231116101717.png)
+It is a separator in 
+- Function calls and definitions
+- Variable declaration
+- Enum declaration
+![Pasted image 20231116101839.png](/img/user/Notes/Programming/Pasted%20image%2020231116101839.png)
+- i.e. evaluates but doesn't return
+![Pasted image 20231116102018.png](/img/user/Notes/Programming/Pasted%20image%2020231116102018.png)
+![Pasted image 20231116102116.png](/img/user/Notes/Programming/Pasted%20image%2020231116102116.png)
+### Precedence of Operators
+- Operators with higher precedence will be evaluated first
+- Associativity of operators come into picture when precedence of operators are the same and we need to decide which operator will be evaluated first
+Associativity can be either Left to right OR Right to left
+![Pasted image 20231116102657.png](/img/user/Notes/Programming/Pasted%20image%2020231116102657.png)
+Precedence and Associativity Table
+![Pasted image 20231116102722.png](/img/user/Notes/Programming/Pasted%20image%2020231116102722.png)
+![Pasted image 20231116103534.png](/img/user/Notes/Programming/Pasted%20image%2020231116103534.png)
+**Notes:**
+- Precedence of **Postfix** Increment/Decrement operator is **greater** than Prefix Increment/Decrement.
+- Associativity of Postfix is also different from Prefix. Associativity of **postfix** operators is from **left to right** and that of **prefix** operators is from **right to left**.
+![Pasted image 20231116103829.png](/img/user/Notes/Programming/Pasted%20image%2020231116103829.png)
+- If we have only one operator, associativity will not work
 ## Conditions and branches
+### If statement
+Anything that goes in the structure: "A is dependent to B" can be expressed in if statement
+E.g. going to the homepage is dependent to the homepage button clicking
+```
+if (homepage_button_is_clicked)
+	go to homepage
+else
+	stays at current page
+```
+![Pasted image 20231116111027.png](/img/user/Notes/Programming/Pasted%20image%2020231116111027.png)
+The playstore button clicking is dependent to the app button clicking.
 - Too many ifs slows down the program
-- `if else` is the same as `if { else {} }`
-nothing much to say...
+- `if else` is the same as `if { else {} }
+- If the body is empty, it won't be considered as an error.
+### Switch
+Its body gets evaluated from top to bottom.
+![Pasted image 20231116111727.png](/img/user/Notes/Programming/Pasted%20image%2020231116111727.png)
+Puts in a INTEGER to evaluate. 
+![Pasted image 20231116111842.png](/img/user/Notes/Programming/Pasted%20image%2020231116111842.png)
+- DON'T put a float / variable in the case label.
+- If there is no break, ALL statements below will get executed (even it doesn't fits the case label)
 ## Loops
 ### For loop
 ```
 for([code that runs only once]; [condition]; [code that runs every time after it runs the body])
 ```
-It runs the body, then does the increment, and see if it matches the condition.
+At the very beginning, it runs the initialization step. Then it runs the body, then does the increment, and see if it matches the condition.
+![Pasted image 20231116112458.png](/img/user/Notes/Programming/Pasted%20image%2020231116112458.png)
 We can write it as follows:
 ```
 int i = 0;
@@ -421,8 +534,28 @@ for (; condition; )
 }
 ```
 This presents the logic more clearly: it executes the loop body, does the increment, and check condition.
+>[!Tips]- The bounday condition of For loop
+>How many times will the For body be executed? And how to know it quickly?
+>```
+>int i = 1024;
+>for (; i ; i >=)
+>{
+>	printf ("%d", i);
+>}
+>```
+>We can know it quicky by going through the thought process below:
+>First, we consider 
+>```
+>Execute the body
+>Does the increment
+>```
+>As one round
+>And then we consider: how many rounds can the variable "survive", i.e. how many times will the increment gets executed and even after that the boolean condition is still true. The number of times that the body will get executed will be our result plus 1.
+>In the above example. 1024 can survive 10 rounds. That is, it fits the boolean condition after 10 times of increment (dividing by 2). After 10 rounds, the statement has been printed 10 times, and now `i = 1`. Now this is the last time that `i` fits the condition. So the programs prints out the statement the 11 th time, and then does the increment. After that, i no longer fits the condition. So overall, the the printing has been done 11 times.
+
 ### While
-Pretty much the same as for.
+- Pretty much the same as for.
+- If the body is empty, it won't be considered as an error. It just keeps evaluating the loop condition
 ### Do ... While
 ```
 do
@@ -431,13 +564,53 @@ do
 } while([condition]);
 ```
 It does the body at least once no matter what.
+![Pasted image 20231116112756.png](/img/user/Notes/Programming/Pasted%20image%2020231116112756.png)
 ## Control flow
 ### Continue
-If it is executed, the program will jump to the next iteration of the for loop.
+If it is executed, the program will jump to the next iteration of the for loop, e.g. the head of the for loop and does the increment.
+>[!Tip]- A Example Program of Printing Odd Number From 1 ~ 20 Using Continue
+>```
+>int i = 1, n = 2;
+>for (i = 1; i <= 20; i++)
+>{
+>		if (i == n)
+>		{
+>			n += 2;
+>			continue;
+>		}
+>		printf ("%d", i);
+>}
+>```
+>Here we use Continue to throw out the unwanted even `i`. We first check if the current i is odd. If not, we prevent it from being printed out. The way we check if it is odd is by using a variable `n`, with n being the next even number. Hence, we want `n` to grow alongside with `i`.
 ### Break
 If it is executed, the program will jump out of the loop.
 ### Return
 It returns a value...
 If u write `return 0;` in `main()`, ur program terminates at that line.
+
+
+
+# Problems Tips
+## Arithmetics
+What happens when we divide a number by 10?
+456/10 -> Remainder = 6 
+				Quotient = 45
+That is, we can perform the modulus operation to get the last digit, and we can perform division to "cut out" the last digit.
+>[!Tips]- How we construct a reverse number
+>1. Make a variable to store the result
+>2. We get the last digit of the number (by modulus) and STORE IT **in a new variable**
+>3. We multiply our result by ten and add the digit we got
+>4. Get rid of the last digit (by division)
+>5. ![Pasted image 20231116131031.png](/img/user/Notes/Programming/Pasted%20image%2020231116131031.png)
+
+>[!Tips]- How we get the number of digits of a number
+>Lets say q is the number we are curious about. We make a count variable first.
+>```
+>While (q!= 0)
+>{
+>	q /= 10;
+>	cnt ++;
+>}
+>```
 
 
