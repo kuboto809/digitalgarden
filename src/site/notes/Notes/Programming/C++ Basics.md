@@ -292,6 +292,7 @@ Why we need functions:
 	Once the function is defined, it can be reused over and over again.
 2. Abstracton
 	If you are just using the function in your program then you don't have to worry about how it works inside!
+We don't want to create a function for everything cuz when it operates, it takes up memory space and the data jumps back and forth in memory, which takes time.
 Here is how a function look like:
 **Function Definition**
 ```
@@ -305,7 +306,8 @@ And here is how we **declare** a function:
 ![Pasted image 20231116155651.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231116155651.png)
 - It is not necessary to put the name of the parameters in function prototype
 *Debugging*
-	If we call a function before declaring it (the function's definition is at the bottom), the compiler assumes that the function returns integer. If our function doesn't return integer, there will be a "conflicting type" error. Because when it reaches the bottom and sees our definition, the return type doesn't match.
+	- If we call a function before declaring it (the function's definition is at the bottom), the compiler assumes that the function returns integer. If our function doesn't return integer, there will be a "conflicting type" error. Because when it reaches the bottom and sees our definition, the return type doesn't match.
+	 -If we write return in the function body but do not specify the type of the return variable in the head of the function, we get an error.
 If we want a function to take in two variables and return their product, we write
 ```
 int Multiply(int a, int b)
@@ -319,8 +321,13 @@ Explain: "Multiply" is the name we give to our function. it takes in two variabe
 c = Multiply(2,4);
 ```
 That means we put in 2, 4 as a and b respectively. Then these two numbers get multiplied, which is 8. The answer 8 is stored in a local variable result in the function (which means that we cannot use the variable "result" outside the function). Then "result" is returned and stored in c. So we get c = 8;
-If we write return in the function body but do not specify the type of the return variable in the head of the function, we get an error.
-We don't want to create a function for everything cuz when it operates, it takes up memory space and the data jumps back and forth in memory, which takes time.
+#### The Difference between **Parameter** and **Argument**
+Parameter: is a variable in the declaration and definition of the function.
+Argument: is the actual value of the parameter that gets passed to the function.
+NOTE: Parameter is also called as Formal Parameter and Argument is also called as Actual Parameter.
+#### Call by Reference
+![Pasted image 20231116162807.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231116162807.png)
+	We pass the address of variables into the function. Then we find where the variables are at and manipulate them directly.
 ## The scope of variable
 ### Definition
 - The area under which a variable is applicable or alive
@@ -354,9 +361,26 @@ Syntax: `register var_type var_name;` e.g. `register int a;`
 - It makes the variable only visible in the current file. Other files cannot see it. 
 - It also initializes the variable to 0. If we want to initialize it to some other value, it must be a constant. 
 - We cannot assign a variable to a static variable, i.e., `static int a = b;` is not allowed since b is a variable.
+- A static variable preserves its previous value in its previous scope and **<mark style="background: #593D4FB5;">is not initialized again</mark>** in the new scope
 ![Pasted image 20231114174101.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231114174101.png)
 If a static variable is initialized (with a value differs to 0), it is stored in the initialized section; otherwise, the uninitialized section (even though its value is 0).
 Syntax: `static var_type var_name;`
+>[!Tips]- An Example of the usage of Static Variable
+> ```
+> int fun ()
+> {
+> 	static int count  = 0;
+> 	count++ ;
+> 	return count;
+> }
+> int main ()
+> {
+> 	printf ("%d", fun ());
+> 	printf ("%d", fun ());
+> }
+> ```
+> The above program prints `1 2`. Note that count won't be initialized to 0 every time fun () is called. Static variables are only initialized once and live till the end of the program
+
 **Local permanence**
 If we declare a static variable in a function, it won't get destroyed after the function ends. Also, other functions in the same file cannot see it.
 ## Using constants
@@ -584,7 +608,8 @@ If it is executed, the program will jump out of the loop.
 It returns a value...
 If u write `return 0;` in `main()`, ur program terminates at that line.
 
-
+# Unsolved Questions
+![Pasted image 20231117093933.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231117093933.png)
 
 # Problems Tips
 ## Arithmetics
