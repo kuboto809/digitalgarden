@@ -339,7 +339,7 @@ Strict Definition: a block or a region where a variable is declared. defined and
 - it is visible to ALL functions in ALL files. Though if u want to use it u need to write `extern` to tell the compiler to grab it. 
 - It is initialized to 0 by default
 ![Pasted image 20231114161548.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231114161548.png)
-Define a variable outside any block/function makes it a global variable.
+- Define a variable outside any block/function makes it a global variable.
 ## Variable Modifier
 ### Auto modifier
 ![Pasted image 20231114162028.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231114162028.png)
@@ -381,6 +381,8 @@ Syntax: `static var_type var_name;`
 > ```
 > The above program prints `1 2`. Note that count won't be initialized to 0 every time fun () is called. Static variables are only initialized once and live till the end of the program
 
+It can also be used to make a function only visible in its definition file, not all files (A function by default is a global function).
+Syntax: `static definition_of_a_function`. So that this function is only accessible in current file.
 **Local permanence**
 If we declare a static variable in a function, it won't get destroyed after the function ends. Also, other functions in the same file cannot see it.
 ## Using constants
@@ -608,9 +610,22 @@ If it is executed, the program will jump out of the loop.
 It returns a value...
 If u write `return 0;` in `main()`, ur program terminates at that line.
 
-# Unsolved Questions
+## Static and Dynamic Scoping
+Scoping helps us reuse variable names. If we don't know the scope of a variable, we might run into trouble when passing or initializing variables between functions.
+### Stack and Activision Record
+![Pasted image 20231117141813.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231117141813.png)
+![Pasted image 20231117141829.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231117141829.png)
+![Pasted image 20231117141857.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231117141857.png)
+### Static Scoping
+In Static scoping (or lexical scoping), definition of a variable is resolved by **searching its containing block** or function. If that fails, **then** searching the **outer containing block** and so on. That is, **向外寻找**。
+![Pasted image 20231117143322.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231117143322.png)
+### Dynamic Scoping
+In dynamic scoping, definition of a variable is resolved by searching its containing block and if not found, then searching its calling function, and if still not found then the function which called that calling function will be searched and so on. That is, **向上层寻找**, or looks down the stack.
+![Pasted image 20231117145400.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231117145400.png)
+Modern programming languages follow static scoping. C/C++ also follows static scoping.
+# Questions done wrong
 ![Pasted image 20231117093933.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231117093933.png)
-
+No! Static variables are only initialized once.
 # Problems Tips
 ## Arithmetics
 What happens when we divide a number by 10?
