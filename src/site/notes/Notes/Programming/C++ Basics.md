@@ -305,9 +305,52 @@ And here is how we **declare** a function:
 **Function Declaration**
 ![Pasted image 20231116155651.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231116155651.png)
 - It is not necessary to put the name of the parameters in function prototype
+#### Taking in an array as an argument
+We need to state the type of the array in definition, like this:
+```
+int func(int a, int b[])
+{
+bla
+}
+
+int main()
+{
+	int b[10] = { bla };
+	func(1, b);
+}
+```
+Note that if we modify the array in func (), the changes will be stored. Because when we pass an array into the function, we are actually passing its address, so we are manipulating the array directly instead of creating a parameter and doing copy and paste. This is also how we can return multiple values from a function -- we can store our data in an array, then access the array outside the function.
+#### Taking in a pointer as argument
+```
+int func(int *ptr)
+{
+*ptr = 2;
+}
+
+int main()
+{
+	int b;
+	int b[10] = { bla };
+	func(1, &b);
+}
+```
+Here we pass the address of b into func (), then we dereference it and assign the value 2 to b.
+Note that we need to write `int *ptr` in the definition. Make sure not to forget writing the `*`, otherwise `ptr` will be treated as `int`. Here `int *ptr` means we **initialize** `ptr` as a pointer and points to the direction we pass (because we pass an address to it, that is, `int *ptr = &b` -- an initialization). 
+#### Returning an address
+Then the return type of our function will be `int *` or other type with a star. For example
+```
+int *func(int n)
+{
+bla
+return &n;
+}
+```
+Here we **return the address** of a. We can store the return value into a pointer like this:
+`int *ptr = func(a);`
 *Debugging*
 	- If we call a function before declaring it (the function's definition is at the bottom), the compiler assumes that the function returns integer. If our function doesn't return integer, there will be a "conflicting type" error. Because when it reaches the bottom and sees our definition, the return type doesn't match.
 	 -If we write return in the function body but do not specify the type of the return variable in the head of the function, we get an error.
+	- DON'T return the address of a local variable. Because the local variable gets destroyed after the completion of the function. So the address is now meaningless.
 If we want a function to take in two variables and return their product, we write
 ```
 int Multiply(int a, int b)
@@ -623,6 +666,70 @@ In Static scoping (or lexical scoping), definition of a variable is resolved by 
 In dynamic scoping, definition of a variable is resolved by searching its containing block and if not found, then searching its calling function, and if still not found then the function which called that calling function will be searched and so on. That is, **向上层寻找**, or looks down the stack.
 ![Pasted image 20231117145400.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231117145400.png)
 Modern programming languages follow static scoping. C/C++ also follows static scoping.
+## Recursion
+- Recursion is a process in which a function calls itself directly or indirectly
+### Direct recursion
+The function calls itself.
+### Indirect recursion
+A function (let say fun) is called indirect recursive if it calls another function (let say fun 2) and then fun 2 calls fun directly or indirectly.
+![Pasted image 20231117233238.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231117233238.png)
+### The advantage and disadvantage of recursive program
+Every recursive program can be modeled into an iterative program.
+Advantage: recursive programs are more elegant and reguires relatively **less lines of code**.
+Disadvantage: recursive programs require **more space** than iterative programs (cuz more activision record are stored in the stack).
+**Stack overflow**: a stack overflow occurs when the call stack, which is used to manage function calls and local variables, becomes filled with too many function calls that haven't yet completed. 
+## Array
+An Array is a data structure containing a number of data values (all of whichare of same type).
+The length of an array can be specified by any integer constant expression (like `int a[q = 21/7];`).
+Specifying the length of an array using macro is considered t be an excellent practice (cuz we can change the value of the length of the array easily later).
+Like this:
+```
+#define N 210
+int a[N];
+```
+### Accessing the elements in an array
+![Pasted image 20231118152500.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231118152500.png)
+### Initializing an arraay
+![Pasted image 20231118152833.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231118152833.png)
+- If we don't specify the length of the array when initializing it, the compiler will set its length to the number of elements in the array when it was being initialized
+- If the number of elements are lesser than the length of the array then the rest of the locations are automatically filled by value 0
+- An easy way to initialize the whole array with value 0 is `int a[10] = {0};`
+- `int a[10] = {};` will lead to error; Also adding too many elements until the array explodes is illegal
+### Designated initialization of an array
+![Pasted image 20231118153317.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231118153317.png)
+Note that we use comma to separate the designated numbers.
+![Pasted image 20231118153445.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231118153445.png)
+![Pasted image 20231118160532.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231118160532.png)
+- Note that we can pass the array into a function by passing the array's name
+### Constant array
+Add the word `const` in the array definition
+- It assures us that the program will not modify the array which may contain some valuable information
+- It also helps the compiler to catch errors byinforming that there is no intention to modify thisarray
+## Pointers
+- Pointer is a special variable that is capable of storing some address
+- It points to a memory location where the first byte is stored
+Like in the following picture, if the pointer p points to i, it will point to 1002, which is the first byte of i (Assuming i takes 2 bytes).
+![Pasted image 20231118165026.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231118165026.png)
+### Initializing a pointer
+Syntax: `data_type *pointer_name;` 
+Here data type means the type of the "target".
+![Pasted image 20231118165457.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231118165457.png)
+The above is equivalent to `int x =5, *ptr = &x;` (cuz the `*ptr` also has `int` type.)
+### Dereferencing
+That means accessing the value at that memory address.
+![Pasted image 20231118165736.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231118165736.png)
+### Printing out the address of a variable
+`%p` is the format specifier for printing address in printf ().
+```
+int i = 1;
+int *ptr = &i;
+printf("%p is the address of i", ptr);
+
+```
+### Debugging
+ - Never apply the indirection operator to the uninitialized pointer
+- Assigning value to an uninitialized pointer is dangerous (it leads to segmentation error, that is, the program is trying to read/write an illegal memory location.)
+Notes: `int *ptr = n;` means initializing the pointer `ptr`, that is, makes it point to the address of n; `*ptr = n;` means assigning the value `n` to where the pointer `ptr` points (if ptr is an initialized pointer, otherwise we get error). `*` doesn't mean dereferencing in initialization; it tells the compiler that `ptr` is a pointer pointing to an integer.
 # Questions done wrong
 ![Pasted image 20231117093933.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231117093933.png)
 No! Static variables are only initialized once.
