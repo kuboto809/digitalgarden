@@ -276,7 +276,16 @@ For other integers:
 ![Pasted image 20231114101453.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231114101453.png)
 Pattern: replace 'd' with 'u' if you want to print an unsigned integer. Put an 'l' in front of it if it is a "long" interger. If it is even longer, put one more 'l' in front of it.
 <font color="#d99694">Does printing an integer as unsigned mean counting its MSB as a part of the positive numbere binary representation?</font>
+### The puts () function
+- is a function declared in <stdio.h> library (these all are as well)
+- Is used to write strings to the output screen
+- Automatically writes a newline character after writing the string to the output screen
+Syntax: `puts(s);` where `s` is the pointer to the string literal;
+### putchar () function
+
+![Pasted image 20231119164925.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119164925.png)
 ## Reading inputs
+### scanf () function
 We can use `scanf()` to read inputs from standard input -- our keyboard!
 Scanf means Scan Formatted string.
 It also uses format modifiers.
@@ -284,6 +293,18 @@ Syntax: `scanf("formatModifier", &var_name);`
 E.g. `scanf("%d", &count);`
 The "&" is called "address-of" operator. It gets the memory address of a variable.
 Scanf () needs to store the data read in a variable, so we need to tell it the address of the variable.
+Since `char a[N]="Hello"` is an array, which is treated as a pointer to the base address, we can write `scanf("%s", a);` to store the string we read inside a string variable (a char string). There is no need to put `&`.
+Scanf () doesn't store the white space characters in the string variable.
+It only reads characters other than white spaces and store them in the specified character array until it encounters a white-space character.
+### gets () function
+It reads the whole line of input.
+Syntax: `gets(a);`, where a is a char array.
+- Both, gets () and scanf () functions have no way to detect when the character array is full.
+Both of them never checks the maximum limit of inout characters. Henc ethey may cause undefined behaviour and probably lead to **buffer overflow** error which eventually causes the program to crash.
+For scanf (), by using `%ns`, where n indicates the number of characters allowed to store in the character array, we can prevent it.
+For gets (), it is unsafe. It is better to use the `fgets()`, where u can assign the maximum character it takes in.
+### getchar () function
+It reads in one character.
 ## Functions
 If we don't want duplicate codes, we can make a function so that whenever we want to do the same operation again and again, we don't have to copy and paste our codes.
 Note that if we do copy and paste our code, we might forget to change some details, which can lead to error. For example, we want to do an operation and output the result called result1, then the second operation and result2, that means we need to make 2 variables to store the results and then output them. But we may forget to create a new variable when we copy the lines.
@@ -319,7 +340,13 @@ int main()
 	func(1, b);
 }
 ```
-Note that if we modify the array in func (), the changes will be stored. Because when we pass an array into the function, we are actually passing its address, so we are manipulating the array directly instead of creating a parameter and doing copy and paste. This is also how we can return multiple values from a function -- we can store our data in an array, then access the array outside the function.
+#### **Notes**
+- if we modify the array in func (), the changes will be stored. Because when we pass an array into the function, we are actually passing its address, so we are manipulating the array directly instead of creating a parameter and doing copy and paste. This is also how we can return multiple values from a function -- we can store our data in an array, then access the array outside the function.
+- the `b` in `func(1,b);` means the base address of the array b, that means we are passing an address to func (). We can also write `int func(int a, int *b)` in the function definition.
+![Pasted image 20231119125429.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119125429.png)
+- when you define a function parameter as an array, like `int b[]`, it is treated as a pointer to the first element of the array. So, `int b[]` and `int *b` in the function definition are interchangeable.
+- But we cannot perform the operation `b++` in the function `add()`. In the add function, if the parameter `b` is declared as `int b[]`, you cannot perform pointer arithmetic operations like `b++` directly on the array parameter itself.
+- If you need to perform pointer arithmetic or modify the pointer itself within the function, you should declare the parameter as `int *b` instead. This allows you to manipulate the pointer `b` using operations like `b++`, `b+1`, etc., which would not be possible if `b` is declared as `int b[]`.
 #### Taking in a pointer as argument
 ```
 int func(int *ptr)
@@ -715,6 +742,7 @@ Syntax: `data_type *pointer_name;`
 Here data type means the type of the "target".
 ![Pasted image 20231118165457.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231118165457.png)
 The above is equivalent to `int x =5, *ptr = &x;` (cuz the `*ptr` also has `int` type.)
+`int **prt;` means initializing a pointer which will contain the address of some other pointer.
 ### Dereferencing
 That means accessing the value at that memory address.
 ![Pasted image 20231118165736.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231118165736.png)
@@ -726,10 +754,104 @@ int *ptr = &i;
 printf("%p is the address of i", ptr);
 
 ```
+### Arithmatic of pointers
+#### Addition and Subtraction
+Adding an integer to a pointer means moving it forward
+![Pasted image 20231119122113.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119122113.png)
+![Pasted image 20231119122132.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119122132.png)
+Subtracting an integer to a pointer means moving it backward
+![Pasted image 20231119122146.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119122146.png)
+Doing arithmatic with integer and pointers means operating the address the pointer is pointing to. 1 means 1 byte.
+Pointer subtraction: the distance between them
+![Pasted image 20231119122208.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119122208.png)
+Behind the scene:
+![Pasted image 20231119122348.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119122348.png)
+![Pasted image 20231119122703.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119122703.png)
+We can do increment/decrement to pointers -- it means moving forward/backward for one unit 
+We can also compare the pointers -- it means comparing their location in an array.
+![Pasted image 20231119122843.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119122843.png)
+### Using array's name as a pointer
+- The name of an array can be used as a pointer pointing to the first element in the array
+![Pasted image 20231119123650.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119123650.png)
+Here `a` means the address of the first element in the array `a[]`.
+Since `a` is an address, we can add/subtract integers to move our pointer:
+![Pasted image 20231119123823.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119123823.png)
+Note that we are manipulating the address, so adding/ subtracting integers means moving.
+
+#### Printing out a 2 D array using pointers
+C++ uses Row Major Order, that is, it stores elements in the rows. If the current row is full, it moves on to the next row and stores elements in it. **(横着排)**
+![Pasted image 20231119130321.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119130321.png)
+Following the rule of Row Major Order, the pointer first traverse the first row, then it moves on to the next row, printing out the values at the same time.
+
+### Pointing to the whole array
+`*` tells the pointer to go inside; `&` tells the pointer to go outside (by inside/ouside we mean the border of our imaginary box.)
+`int *ptr = a;` is a pointer pointing to the first element in the array `a[N]`. If we want to point to the whole array, we write `int *ptr[N] = &a` so that it goes outside (from pointing the first element only) and points to the whole array `a[N]`. Its value is the same as `&a[0]`, that is, the address of the first element in the array.
+![Pasted image 20231119143530.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119143530.png)
+![Pasted image 20231119143812.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119143812.png)
+Here `p` points to the whole array, its value is `1000` (cuz it will be the same as the first element inside it). `*p` points to the first element of the array, its value is `1000`. `**p` means getting the value at `1000`, so its value is 1.
+### Accessing multi-dimensional array using pointer
+![Pasted image 20231119132350.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119132350.png)
+In 2D array, `a` doesn't mean the address of an element -- it means the address of an **array** (the first 1D array, the value is the same as its base address). `*a` tells the pointer to go inside, then it enteres the first row, now pointing to the base address of the first 1D array (i.e. pointing to the first element of the first array). To reach the first element in the first row, we need to add one more `*` to tell the pointer to hop in. Finally, `**a` gets us the first element in the first row.
+#### Visualization
+![Pasted image 20231119132840.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119132840.png)
+![Pasted image 20231119132858.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119132858.png)
+![Pasted image 20231119133232.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119133232.png)
+The case of 3D array is similar
+![Pasted image 20231119133332.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119133332.png)
+![Pasted image 20231119133740.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119133740.png)
+The first star: (enters) which table
+The second star: (enters) which row in the table
+The third star: (enters) which element in the row
 ### Debugging
  - Never apply the indirection operator to the uninitialized pointer
 - Assigning value to an uninitialized pointer is dangerous (it leads to segmentation error, that is, the program is trying to read/write an illegal memory location.)
 Notes: `int *ptr = n;` means initializing the pointer `ptr`, that is, makes it point to the address of n; `*ptr = n;` means assigning the value `n` to where the pointer `ptr` points (if ptr is an initialized pointer, otherwise we get error). `*` doesn't mean dereferencing in initialization; it tells the compiler that `ptr` is a pointer pointing to an integer.
+- We cannot assign a new address to `a`, where `a` means the address of the first element in the array
+![Pasted image 20231119124021.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119124021.png)
+
+## Strings
+- String Literal (or String Constant) is a sequence of characters enclosed within double quotes. E.g. `"Hello!"`
+When printing strings, if u want to start a new line **when typing** ur quote (not when printing them out), use `\` to separate them, but it adds four spaces in front of your second quote.
+```
+printf("You have your own dream \
+-- by me");
+```
+Or u can type another quote with quotes:
+```
+printf("You have your own dream" 
+"-- by me");
+```
+### How strings are stored
+![Pasted image 20231119152614.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119152614.png)
+- String literals are stored in read-only memory. So we cannot access the letter `E` and change it to something else.
+- `"H"` and `'H'` are not the same. `"H"` is a pointer to the character `H`, while `'H'` is a number (according to the ASCII table)
+### How printf () function works
+![Pasted image 20231119152644.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119152644.png)
+We are actually passing a char pointer to the printf () function. The printf () function starts from the address of the first element in the string (cuz we passed a char pointer to tell it where to start) and traverse the whole string, printing out the letters at the same time, until it reaches `\0`. 
+```
+const char *a = "Hello";
+printf("%s", a);
+```
+Tells the printf () function to start printing from letter H (cuz a points to letter H).
+- `%.ns` is used to print just a part of the string where `n` is the number of characters to be displayed on the screen.
+![Pasted image 20231119160635.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119160635.png)
+### Accessing the letters in a string
+Let's say `const char *a = "Hello";`, then `a[1]` will be `e`, cuz `a[i]` means a pointer moves from the base address of `a` i units forward.
+### String array
+We can create a char array to store the letters.
+`char a[] = "Hello";` In this case, there is a 6 bytes long char array storing the letter 'H' 'e' 'l' 'l' 'o', and also the null character `\0`. If we allocate too many memory for a short string, the empty spaces will be filled with '\0'. E.g. `a[10] = "Hello"`. Then there will be 5 `\0` after the letter o.
+Since it is an array, we can modify its elements. That means, `a[0] = 'M'` is legal.
+### C string Library
+The operations for strings are all in `<string.h>` .
+#### strcpy ()
+![Pasted image 20231119170604.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119170604.png)
+![Pasted image 20231119170653.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119170653.png)
+- If the length of the string pointed by str1 is greater than the length of thecharacter array str2 then it will be an undefined behaviour (overflow).
+To avoid this, we can call `strncpy ()` instead, where we can specify the length of character we want to copy.
+![Pasted image 20231119170957.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119170957.png)
+However, we need to make sure there is a `\0` at the end of str 2.
+![Pasted image 20231119171127.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119171127.png)
+
 # Questions done wrong
 ![Pasted image 20231117093933.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231117093933.png)
 No! Static variables are only initialized once.
