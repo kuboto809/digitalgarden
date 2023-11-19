@@ -746,13 +746,6 @@ The above is equivalent to `int x =5, *ptr = &x;` (cuz the `*ptr` also has `int`
 #### Array of pointer and pointer of array
 -  `int *ptr[10];` means making an array full of integer pointers.
 -  `int (*ptr)[10];` means a pointer pointing to an array with 10 integers. (`[]` has higher precedence than `*`)
-![Pasted image 20231119200946.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119200946.png)
-![Pasted image 20231119201031.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119201031.png)
-![Pasted image 20231119201043.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119201043.png)
-![Pasted image 20231119201119.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119201119.png)
-Or
-![Pasted image 20231119201334.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119201334.png)
-
 ### Dereferencing
 That means accessing the value at that memory address.
 ![Pasted image 20231118165736.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231118165736.png)
@@ -820,10 +813,19 @@ The third star: (enters) which element in the row
 
 ### Function pointer
 - Function pointers are like normal pointers but they have the capability to point to a function
-
-
-
-
+![Pasted image 20231119200946.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119200946.png)
+![Pasted image 20231119201031.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119201031.png)
+![Pasted image 20231119201043.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119201043.png)
+![Pasted image 20231119201119.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119201119.png)
+Or
+![Pasted image 20231119201334.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119201334.png)
+<font color="#d99694">Why we don't need `*`?</font>
+How we use a function pointer:
+![Pasted image 20231119202200.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119202200.png)
+### Important clarification
+Point 1) `*p[ops]` --- means `p` is an ARRAY of size `ops` pointing to something, or its an ARRAY of POINTERS pointing to some data type. here elements of array `p` are pointers. If we declare it as `char *p[ops]`, then the pointers in each elements of array `p` are pointing to `char` data type. Now we can store any pointers which points to `char ` data type as the array elements
+Point 2) `(*p)[ops]` --- means `p` is a POINTER to an array of size `ops` or `p` points to an array. `p` just points to an array having certain number of elements. If we declare `char (*p)[ops] ` then the elements of array which `p` is pointing is of `char ` data type. If we want the array elements as pointers then we can declare as `char (*p)[ops]`. Now the elements of array which is pointed by `p` becomes pointers to `char`. That is we can store any pointers which are of `char*` data type as the array elements as in point number 1. This means the declaration near to `(*p)[ops]` such as `char` or `char*` determines the type of elements of array. 3) `float (*p[ops])(float, float)` ---- here `*p[ops]` means `p` is an array of pointers as in first case. That is `p` is an array and can hold pointers in each of its elements. now the type of pointer elements of array p is determined by the near by "brackets and keywords such as `float`. `float (*p[ops]) (float, float)` makes the pointers which can be stored in the array `p` as FUNTION pointers which take `(float, float)`as arguments and then return a `float`.
+(From youtube comment of https://www.youtube.com/watch?v=wQ-gWwKKeP4&list=PLBlnK6fEyqRggZZgYpPMUxdY1CYkZtARR&index=148 )
 ### Debugging
  - Never apply the indirection operator to the uninitialized pointer
 - Assigning value to an uninitialized pointer is dangerous (it leads to segmentation error, that is, the program is trying to read/write an illegal memory location.)
