@@ -743,6 +743,16 @@ Here data type means the type of the "target".
 ![Pasted image 20231118165457.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231118165457.png)
 The above is equivalent to `int x =5, *ptr = &x;` (cuz the `*ptr` also has `int` type.)
 `int **prt;` means initializing a pointer which will contain the address of some other pointer.
+#### Array of pointer and pointer of array
+-  `int *ptr[10];` means making an array full of integer pointers.
+-  `int (*ptr)[10];` means a pointer pointing to an array with 10 integers. (`[]` has higher precedence than `*`)
+![Pasted image 20231119200946.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119200946.png)
+![Pasted image 20231119201031.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119201031.png)
+![Pasted image 20231119201043.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119201043.png)
+![Pasted image 20231119201119.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119201119.png)
+Or
+![Pasted image 20231119201334.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119201334.png)
+
 ### Dereferencing
 That means accessing the value at that memory address.
 ![Pasted image 20231118165736.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231118165736.png)
@@ -777,7 +787,7 @@ Here `a` means the address of the first element in the array `a[]`.
 Since `a` is an address, we can add/subtract integers to move our pointer:
 ![Pasted image 20231119123823.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119123823.png)
 Note that we are manipulating the address, so adding/ subtracting integers means moving.
-
+`a[2]` means `*(a+2)` which is equivalent to `2[a]` and `*(2+a)` as well.
 #### Printing out a 2 D array using pointers
 C++ uses Row Major Order, that is, it stores elements in the rows. If the current row is full, it moves on to the next row and stores elements in it. **(横着排)**
 ![Pasted image 20231119130321.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119130321.png)
@@ -802,6 +812,18 @@ The case of 3D array is similar
 The first star: (enters) which table
 The second star: (enters) which row in the table
 The third star: (enters) which element in the row
+### Pointer pointing to a pointer
+![Pasted image 20231119192916.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119192916.png)
+![Pasted image 20231119193025.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119193025.png)
+`*s1` can get us the value of the char pointer, which is the address of a char.
+![Pasted image 20231119193313.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119193313.png)
+
+### Function pointer
+- Function pointers are like normal pointers but they have the capability to point to a function
+
+
+
+
 ### Debugging
  - Never apply the indirection operator to the uninitialized pointer
 - Assigning value to an uninitialized pointer is dangerous (it leads to segmentation error, that is, the program is trying to read/write an illegal memory location.)
@@ -832,15 +854,17 @@ We are actually passing a char pointer to the printf () function. The printf () 
 const char *a = "Hello";
 printf("%s", a);
 ```
-Tells the printf () function to start printing from letter H (cuz a points to letter H).
+Tells the printf () function to start printing from letter H (cuz `a` points to letter H).
+Here the pointer `a` cannot be modified. That means we cannot make `a` points to somewhere else.
 - `%.ns` is used to print just a part of the string where `n` is the number of characters to be displayed on the screen.
 ![Pasted image 20231119160635.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119160635.png)
 ### Accessing the letters in a string
-Let's say `const char *a = "Hello";`, then `a[1]` will be `e`, cuz `a[i]` means a pointer moves from the base address of `a` i units forward.
+Let's say `const char *a = "Hello";`, then `a[1]` will be `e`, cuz `a[i]` means a pointer moves from the base address of `a` i units forward. Here `a[i]` means the element at `a+1`, like how we grab an element in an integer array.
 ### String array
 We can create a char array to store the letters.
 `char a[] = "Hello";` In this case, there is a 6 bytes long char array storing the letter 'H' 'e' 'l' 'l' 'o', and also the null character `\0`. If we allocate too many memory for a short string, the empty spaces will be filled with '\0'. E.g. `a[10] = "Hello"`. Then there will be 5 `\0` after the letter o.
 Since it is an array, we can modify its elements. That means, `a[0] = 'M'` is legal.
+`a` is also a pointer here, but now we can modify its value. Like `*a = 'M';`.We can even make `a` point to somewhere else [[pointer pointing to a pointer\|pointer pointing to a pointer]]
 ### C string Library
 The operations for strings are all in `<string.h>` .
 #### strcpy ()
@@ -849,9 +873,22 @@ The operations for strings are all in `<string.h>` .
 - If the length of the string pointed by str1 is greater than the length of thecharacter array str2 then it will be an undefined behaviour (overflow).
 To avoid this, we can call `strncpy ()` instead, where we can specify the length of character we want to copy.
 ![Pasted image 20231119170957.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119170957.png)
-However, we need to make sure there is a `\0` at the end of str 2.
+However, we need to make sure there is a `\0` at the end of str 2. 
 ![Pasted image 20231119171127.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119171127.png)
-
+![Pasted image 20231119184505.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119184505.png)
+![Pasted image 20231119184845.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119184845.png)
+![Pasted image 20231119184951.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119184951.png)
+![Pasted image 20231119185054.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119185054.png)
+![Pasted image 20231119185424.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119185424.png)
+strcmp considers s 1< s2 if either one of the following conditions is satisfied:
+- When the first i characters in s 1 and s 2 are same and (i+1) st character of s 1 is less than that of s2
+- All characters of s1 match s2, but s1 is shorter than s2
+### Array of string
+We want to store a set of strings.
+![Pasted image 20231119185954.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119185954.png)
+This will work, but there are many memory wasted.
+![Pasted image 20231119185913.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231119185913.png)
+To access the strings in it, use `fruits[i]`. For example, `fruits[1]` refers to the string `"2 Apples"`. 
 # Questions done wrong
 ![Pasted image 20231117093933.png](/img/user/Notes/Programming/attachments/Pasted%20image%2020231117093933.png)
 No! Static variables are only initialized once.
